@@ -1,10 +1,10 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
-import {RootStackParamList} from '../types/navigation';
-import BottomTabNavigator from './BottomTabNavigation';
-import Login from '../screens/Login';
-import CreateWallet from '../screens/CreateWallet';
-import ImportWallet from '../screens/ImportWallet';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { RootStackParamList } from "../types/navigation";
+import BottomTabNavigator from "./BottomTabNavigation";
+import Login from "../screens/Login";
+import CreateWallet from "../screens/CreateWallet";
+import ImportWallet from "../screens/ImportWallet";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function StackNavigation() {
@@ -12,16 +12,17 @@ export default function StackNavigation() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'black',
+          backgroundColor: "black",
         },
       }}
-      initialRouteName={'Login'}>
+      initialRouteName={"CreateWallet"}
+    >
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={{
           headerShown: false,
-          animation: 'default',
+          animation: "default",
           gestureEnabled: false,
         }}
       />
@@ -30,7 +31,7 @@ export default function StackNavigation() {
         component={Login}
         options={{
           headerShown: false,
-          animation: 'default',
+          animation: "default",
           gestureEnabled: false,
         }}
       />
@@ -39,7 +40,7 @@ export default function StackNavigation() {
         component={CreateWallet}
         options={{
           headerShown: false,
-          animation: 'default',
+          animation: "default",
           gestureEnabled: false,
         }}
       />
@@ -48,7 +49,7 @@ export default function StackNavigation() {
         component={ImportWallet}
         options={{
           headerShown: false,
-          animation: 'default',
+          animation: "default",
           gestureEnabled: false,
         }}
       />
