@@ -15,7 +15,7 @@ export default function StackNavigation() {
           backgroundColor: "black",
         },
       }}
-      initialRouteName={"CreateWallet"}
+      initialRouteName={"Login"}
     >
       <Stack.Screen
         name="Root"
