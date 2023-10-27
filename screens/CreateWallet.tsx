@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Button,
   FlatList,
   Pressable,
@@ -11,6 +12,16 @@ import {
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Colors from "../Constants/colors";
+import {
+  Wallet,
+  ethers,
+  hexlify,
+  pbkdf2,
+  randomBytes,
+  toUtf8Bytes,
+} from "ethers";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export type Answer = {
   first: string;
@@ -32,6 +43,9 @@ const CreateWallet = () => {
     third: "",
     fourth: "",
   });
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const navigation = useNavigation();
+
   const Questions: Question[] = [
     {
       text: "What is your childhood name?",
@@ -62,6 +76,64 @@ const CreateWallet = () => {
       value: answer.fourth,
     },
   ];
+
+  const storeWalet = async (privateKey: string) => {
+    const wallet = new Wallet(privateKey);
+    console.log("wallet private key", wallet.privateKey);
+    console.log("wallet public key", wallet.address);
+    const data = {
+      privateKey: wallet.privateKey,
+      publicKey: wallet.address,
+    };
+    const userData = JSON.stringify(data);
+    await AsyncStorage.setItem("@user_data", userData);
+
+    navigation.reset({ index: 0, routes: [{ name: "Root" }] });
+  };
+
+  const createWallet = async () => {
+    try {
+      if (
+        answer.first == "" ||
+        answer.second == "" ||
+        answer.third == "" ||
+        answer.fourth == ""
+      ) {
+        console.log("invalid click");
+        return;
+      }
+
+      setIsLoading(true);
+      console.log(isLoading);
+      setTimeout(() => {
+        console.log("me false ho raha");
+        setIsLoading(false);
+      }, 5000);
+
+      const combinedAnswer =
+        answer.first + answer.second + answer.third + answer.fourth;
+      console.log(combinedAnswer, "combined answer");
+      const answersBytes = toUtf8Bytes(combinedAnswer, "NFKC");
+
+      const salt = "df1f2d3f4d77ac66e9c5a6c3d8f921b6";
+      const saltBytes = toUtf8Bytes(salt, "NFKC");
+      console.log(saltBytes, "random salt");
+
+      const privateKey = await pbkdf2(
+        answersBytes,
+        saltBytes,
+        100000,
+        32,
+        "sha256"
+      );
+      console.log(privateKey, "private key in buffer");
+      await storeWalet(privateKey);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const renderQuestions = ({ item }: { item: Question }) => {
     return (
@@ -94,10 +166,17 @@ const CreateWallet = () => {
       <Pressable
         style={styles.createButton}
         onPress={async () => {
-          console.log(answer);
+          // setIsLoading(true);
+          await createWallet();
         }}
       >
-        <Text style={styles.createText}>Create</Text>
+        <Text style={styles.createText}>
+          {isLoading ? (
+            <ActivityIndicator color={Colors.foreground} />
+          ) : (
+            "Create"
+          )}
+        </Text>
       </Pressable>
     </SafeAreaView>
   );
