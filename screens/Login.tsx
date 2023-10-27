@@ -11,8 +11,8 @@ const Login = () => {
       {/* <Cover width={width} height={height} /> */}
       <View style={{ flex: 0.8 }}>
         <Image
-          source={require("../assets/icons/BLAYKKK.png")}
-          style={{ position: "absolute" }}
+          source={require("../assets/icons/BLAYKKK5.png")}
+          style={{ position: "relative" }}
         />
       </View>
       {/* <Text
@@ -27,10 +27,10 @@ const Login = () => {
       >
         Simpo
       </Text> */}
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,zIndex:4,opacity:1 }}>
         <Image
           source={require("../assets/icons/pie.png")}
-          style={{ position: "relative",bottom:110,zIndex:18,width:'70%',height:'70%' }}
+          style={{ position: "relative",bottom:110,zIndex:8,width:'70%',height:'70%' }}
         />
       </View>
       <View
