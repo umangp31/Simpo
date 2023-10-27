@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import RightArrow from "../assets/icons/RightArrow";
+import SendIcon from "../assets/icons/SendIcon";
 
 type Props = {};
 
@@ -16,8 +16,8 @@ const Send = (props: Props) => {
         borderRadius: 16,
       }}
     >
-      <RightArrow width={32} height={32} />
-      <Text>Send</Text>
+      <SendIcon width={32} height={32} />
+      <Text style={{fontWeight:"400",fontSize:16,color:"white"}} >Send</Text>
     </View>
   );
 };

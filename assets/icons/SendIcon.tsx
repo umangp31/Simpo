@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { SvgProps, G, Path } from "react-native-svg";
-const ArrowDown = (props: SvgProps) => (
+const SendIcon = (props: SvgProps) => (
   <Svg
     viewBox="0 0 24 24"
     fill="none"
@@ -15,7 +15,7 @@ const ArrowDown = (props: SvgProps) => (
     />
     <G id="SVGRepo_iconCarrier">
       <Path
-        d="M7 10L12 15L17 10"
+        d="M20 4L3 11L10 14M20 4L13 21L10 14M20 4L10 14"
         stroke="#ffffff"
         strokeWidth={1.5}
         strokeLinecap="round"
@@ -24,4 +24,4 @@ const ArrowDown = (props: SvgProps) => (
     </G>
   </Svg>
 );
-export default ArrowDown;
+export default SendIcon;

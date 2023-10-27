@@ -38,12 +38,12 @@ const CustomTabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
             {tabBarIcon &&
               tabBarIcon({
                 focused: isFocused,
-                color: isFocused ? '#000000' : '#000000',
+                color: isFocused ? '#8ecae6' : '#e7ecef',
                 size: 20,
               })}
             <Text
               style={{
-                color: isFocused ? '#000000' : '#000000',
+                color: isFocused ? '#8ecae6' : '#e7ecef',
                 fontSize: 12,
                 marginTop: 4,
               }}>{`${label}`}</Text>
@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     heigh: 60,
-    backgroundColor: 'rgba(255, 255, 255, 1)', // Semi-transparent background
-    borderRadius: 20, // Rounded corners
+    backgroundColor: '#1d1d1d', // Semi-transparent background
   },
   tab: {
     flex: 1,

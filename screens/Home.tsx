@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 import getTokenBalance from "../utils/getTokenBalance";
 import getAllNFT from "../utils/getAllNFT";
@@ -9,6 +9,9 @@ import Avatar from "../UI/Avatar";
 import Send from "../UI/Send";
 import Assets from "../UI/Assets";
 import ArrowDown from "../assets/icons/ArrowDown";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Swap from "../UI/Swap";
+import Recieve from "../UI/Recieve";
 const Home = () => {
   // const balance=getTokenBalance('1','0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
   useEffect(() => {
@@ -22,7 +25,7 @@ const Home = () => {
   return (
     <ScrollView style={{ flex: 1,backgroundColor:'#1d1d1d' }}>
       <StatusBar style="dark" />
-      <SafeAreaView style={{ paddingVertical: 44, paddingHorizontal: 12 }}>
+      <SafeAreaView style={{paddingHorizontal: 12 }}>
         <View
           style={{
             flexDirection: "row",
@@ -35,8 +38,8 @@ const Home = () => {
             width={44}
             src="https://images.pexels.com/photos/12987878/pexels-photo-12987878.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
           />
-          <Text style={{ paddingHorizontal: 8,color:"white",fontSize:16 }}>UserName</Text>
-          <ArrowDown width={16} height={16} color={'white'} />
+          <Text style={{ paddingLeft: 8,paddingRight:0,color:"white",fontSize:16,alignSelf:"center" }}>UserName</Text>
+          <ArrowDown width={26} height={26} color={'white'} style={{alignSelf:"center"}} />
         </View>
         <View
           style={{
@@ -77,8 +80,8 @@ const Home = () => {
         </View>
         <View style={{paddingVertical:12,flexDirection:"row",columnGap:8}} >
           <Send/>
-          <Send/>
-          <Send/>
+          <Swap/>
+          <Recieve/>
         </View>
         <Text style={{fontSize:16,fontWeight:"500",color:"white",justifyContent:"center",textAlign:"center",paddingTop:16}} >My Assets</Text>
         <View style={{paddingVertical:12,rowGap:12}} >
