@@ -1,71 +1,167 @@
-import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  Pressable,
+  StatusBar,
+  Animated,
+  Easing,
+} from "react-native";
 import React from "react";
-import Cover from "../assets/icons/Cover";
-import { Dimensions } from "react-native";
-import RightArrow from "../assets/icons/RightArrow";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Colors from "../Constants/colors";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Login = () => {
-  const width = Dimensions.get("screen").width;
-  const height = Dimensions.get("screen").height;
+  const [spinAnim, setSpinAnim] = React.useState(new Animated.Value(0));
+  const spin = spinAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
+
+  React.useEffect(() => {
+    Animated.loop(
+      Animated.timing(spinAnim, {
+        toValue: 1,
+        duration: 5000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
+    ).start();
+  });
+
+  const checkLogin = async () => {
+    const userData = await AsyncStorage.getItem("@user_data");
+    if (userData) {
+      const jsonData = JSON.parse(userData);
+      console.log(jsonData.privateKey);
+      console.log(jsonData.publicKey);
+      navigation.reset({ index: 0, routes: [{ name: "Root" }] });
+    }
+  };
+
+  React.useEffect(() => {
+    checkLogin();
+  }, []);
+
+  const navigation = useNavigation();
+
   return (
-    <View style={{ position: "relative", flex: 1 }}>
-      {/* <Cover width={width} height={height} /> */}
-      <View style={{ flex: 0.8 }}>
-        <Image
-          source={require("../assets/icons/BLAYKKK5.png")}
-          style={{ position: "relative" }}
-        />
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={"black"} />
+      <Animated.Image
+        source={require("../assets/globe.png")}
+        style={[styles.globe, { transform: [{ rotate: spin }] }]}
+      />
+      <View style={styles.contentContainer}>
+        <View style={styles.middleImage}>
+          <Animated.Image
+            source={require("../assets/crypto.png")}
+            style={[styles.crypto, { transform: [{ rotate: spin }] }]}
+          />
+          <Image
+            source={require("../assets/Ethereum.png")}
+            style={styles.ethereum}
+          />
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.title}>Simpo</Text>
+          <Text style={styles.subtitle}>Transact without remembering</Text>
+          <Text style={[styles.subtitle, styles.line]}>random words</Text>
+          <Pressable
+            style={styles.createButton}
+            onPress={async () => {
+              navigation.navigate("CreateWallet");
+            }}
+          >
+            <Text style={styles.createText}>Create new wallet</Text>
+          </Pressable>
+          <Pressable
+            style={styles.importButton}
+            onPress={async () => {
+              navigation.navigate("ImportWallet");
+            }}
+          >
+            <Text style={styles.importText}>Import Existing</Text>
+          </Pressable>
+        </View>
       </View>
-      {/* <Text
-        style={{
-          fontSize: 32,
-          color: "white",
-          paddingVertical: 4,
-          justifyContent: "center",
-          alignItems: "center",
-          flex: 0.7,
-        }}
-      >
-        Simpo
-      </Text> */}
-      <View style={{ flex: 1,zIndex:4,opacity:1 }}>
-        <Image
-          source={require("../assets/icons/pie.png")}
-          style={{ position: "relative",bottom:110,zIndex:8,width:'70%',height:'70%' }}
-        />
-      </View>
-      <View
-        style={{
-          flex: 0.5,
-          paddingHorizontal: 12,
-          justifyContent: "space-around",
-          // alignItems: "center",
-          // borderWidth: 2,
-          borderColor: "red",
-        }}
-      >
-        <Text style={{ fontSize: 32, color: "white" }}>
-          Wallet made Simple to use
-        </Text>
-        <Pressable
-          style={{
-            backgroundColor: "white",
-            flexDirection: "row",
-            width: "100%",
-            height: 48,
-            borderRadius: 8,
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: 24,
-          }}
-        >
-          <Text>Continue</Text>
-          <RightArrow width={16} height={16} />
-        </Pressable>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default Login;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.background,
+    flex: 1,
+    padding: 16,
+  },
+  globe: {
+    position: "absolute",
+    top: -480,
+    left: -150,
+  },
+  crypto: {
+    width: 250,
+    height: 250,
+    alignSelf: "center",
+  },
+  contentContainer: {
+    marginTop: 130,
+    flexDirection: "column",
+  },
+  footer: {
+    marginVertical: 30,
+  },
+  title: {
+    fontSize: 54,
+    fontWeight: "600",
+    color: Colors.foreground,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "400",
+    color: Colors.foreground,
+  },
+  line: {
+    textDecorationLine: "line-through",
+  },
+  createButton: {
+    backgroundColor: Colors.foreground,
+    borderRadius: 12,
+    paddingVertical: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
+  },
+  createText: {
+    color: Colors.background,
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  importButton: {
+    backgroundColor: Colors.navyBlue,
+    borderRadius: 12,
+    paddingVertical: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  importText: {
+    color: Colors.foreground,
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  middleImage: {
+    position: "relative",
+  },
+  ethereum: {
+    position: "absolute",
+    top: "25%",
+    left: "30%",
+  },
+});

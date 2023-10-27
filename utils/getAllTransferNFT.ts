@@ -4,8 +4,8 @@ import { err } from "react-native-svg/lib/typescript/xml";
 const getAllTransferNFT = async (
   network_id: string,
   contract_addr: string,
-  page: number,
-  limit: number
+  page?: number,
+  limit?: number
 ) => {
   const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
   if (!network_id) {
