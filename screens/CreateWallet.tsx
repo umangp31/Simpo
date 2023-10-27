@@ -104,11 +104,6 @@ const CreateWallet = () => {
       }
 
       setIsLoading(true);
-      console.log(isLoading);
-      setTimeout(() => {
-        console.log("me false ho raha");
-        setIsLoading(false);
-      }, 5000);
 
       const combinedAnswer =
         answer.first + answer.second + answer.third + answer.fourth;
@@ -194,7 +189,6 @@ const styles = StyleSheet.create({
     color: Colors.foreground,
     fontSize: 22,
     fontWeight: "600",
-    // textAlign: "center",
   },
   questionsContainer: {
     marginTop: 24,
@@ -208,9 +202,9 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: 20,
-    color: Colors.background,
+    color: Colors.foreground,
     fontWeight: "500",
-    backgroundColor: Colors.mintGreen,
+    backgroundColor: Colors.navyBlue,
     borderRadius: 10,
     paddingHorizontal: 4,
     alignSelf: "flex-start",
@@ -222,14 +216,14 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   createButton: {
-    backgroundColor: Colors.mintGreen,
+    backgroundColor: Colors.navyBlue,
     borderRadius: 10,
     paddingVertical: 12,
     justifyContent: "center",
     alignItems: "center",
   },
   createText: {
-    color: Colors.background,
+    color: Colors.foreground,
     fontSize: 20,
     fontWeight: "800",
   },
