@@ -21,9 +21,6 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Wallet height={24} width={24} color={color} />
           ), // Specify the icon for this taba
-          tabBarStyle: {
-            backgroundColor: "#1d1d1d",
-          },
         }}
       />
       <BottomTab.Screen
@@ -35,9 +32,6 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Settings height={24} width={24} color={color} />
           ),
-          tabBarStyle: {
-            backgroundColor: "#1d1d1d",
-          },
         }}
       />
     </BottomTab.Navigator>

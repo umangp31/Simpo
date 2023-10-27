@@ -5,14 +5,17 @@
  * @format
  */
 
-import React from 'react';
-import Navigation from './navigation';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import React from "react";
+import Navigation from "./navigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 function App(): JSX.Element {
   return (
     <SafeAreaProvider>
-      <Navigation />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Navigation />
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }
