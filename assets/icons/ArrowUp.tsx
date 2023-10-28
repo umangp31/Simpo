@@ -2,7 +2,7 @@ import * as React from "react";
 import Svg, { SvgProps, Path } from "react-native-svg";
 const ArrowUp = (props: SvgProps) => (
   <Svg
-    fill="#529864"
+    fill={props?.color ? props?.color : "#529864"}
     width="800px"
     height="800px"
     viewBox="0 0 52 52"
