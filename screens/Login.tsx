@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Colors from "../Constants/colors";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const Login = () => {
   const [spinAnim, setSpinAnim] = React.useState(new Animated.Value(0));
   const spin = spinAnim.interpolate({
@@ -68,7 +69,7 @@ const Login = () => {
         </View>
         <View style={styles.footer}>
           <Text style={styles.title}>Simpo</Text>
-          <Text style={styles.subtitle}>Transact without remembering</Text>
+          <Text style={styles.subtitle}>Your escape from memorizing</Text>
           <Text style={[styles.subtitle, styles.line]}>random words</Text>
           <Pressable
             style={styles.createButton}

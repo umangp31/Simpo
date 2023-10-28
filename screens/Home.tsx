@@ -5,16 +5,16 @@ import getAllNFT from "../utils/getAllNFT";
 import getNFTMetadata from "../utils/getNFTMetadata";
 import { getAllTokens } from "../utils/getAllTokens";
 import { StatusBar } from "expo-status-bar";
-import Avatar from "../UI/Avatar";
-import Send from "../UI/Send";
-import Assets from "../UI/Assets";
+import Avatar from "../Components/Avatar";
+import Send from "../Components/Send";
+import Assets from "../Components/Assets";
 import ArrowDown from "../assets/icons/ArrowDown";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Swap from "../UI/Swap";
-import Recieve from "../UI/Recieve";
-import NFTCard from "../UI/NFTCard";
+import Swap from "../Components/Swap";
+import Recieve from "../Components/Recieve";
+import NFTCard from "../Components/NFTCard";
 import { FlatList } from "react-native-gesture-handler";
-import TotalBalance from "../UI/TotalBalance";
+import TotalBalance from "../Components/TotalBalance";
 const Home = () => {
   // const balance=getTokenBalance('1','0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
   useEffect(() => {

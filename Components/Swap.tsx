@@ -8,7 +8,7 @@ const Swap = (props: Props) => {
   return (
 <View
       style={{
-        width: 114,
+        width: 106,
         height:84,
         backgroundColor: "#2d2d2d",
         justifyContent: "center",
