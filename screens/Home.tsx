@@ -34,14 +34,13 @@ const Home = () => {
   const openTransactionSheet = () => {
     sendTransactionRef?.current?.snapToIndex(0);
   };
-  useEffect(() => {
-    allNFT();
-  }, []);
+
+  // useEffect(() => {
+  //   allNFT();
+  // }, []);
   const allNFT = async () =>
     await getAllTokens("1", "0xed5af388653567af2f388e6224dc7c4b3241c544");
   console.log(allNFT);
-  const height = Dimensions.get("screen").height;
-  const width = Dimensions.get("screen").width;
   const data = [1, 2, 3, 4];
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#1d1d1d" }}>

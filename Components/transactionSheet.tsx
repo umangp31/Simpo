@@ -1,20 +1,64 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import Sheet from "./BottomSheet";
 import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import Colors from "../Constants/colors";
 import Close from "../assets/icons/Cllose";
+import { Wallet, ethers } from "ethers";
+import { useAuthStore } from "../store/authStore";
 
 const TransactionSheet = ({
   sendTransactionRef,
 }: {
-  sendTransactionRef: React.Ref<BottomSheetMethods>;
+  sendTransactionRef: React.RefObject<BottomSheetMethods>;
 }) => {
   const [address, setAddress] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
+  const { privateKey } = useAuthStore();
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onChangeAmount = (value: string) => {
     setAmount(value);
+  };
+
+  const checkAddress = (value: string) => {
+    setAddress(value);
+    if (
+      (value.includes("0x") && value.length === 42) ||
+      value.includes(".eth")
+    ) {
+      setIsValid(true);
+    }
+  };
+
+  const sendTokens = async () => {
+    try {
+      setIsLoading(true);
+      const provider = new ethers.JsonRpcProvider(
+        process.env.EXPO_PUBLIC_RPC_URL
+      );
+      console.log(privateKey);
+
+      const signer = new Wallet(privateKey!, provider);
+      const tx = await signer.sendTransaction({
+        to: address,
+        value: ethers.parseUnits(amount, "ether"),
+      });
+      console.log(tx);
+      sendTransactionRef?.current?.close();
+    } catch (error) {
+      console.log("something went wrong", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -45,7 +89,7 @@ const TransactionSheet = ({
               keyboardType="default"
               multiline={true}
               value={address}
-              onChangeText={setAddress}
+              onChangeText={checkAddress}
             />
           </View>
           <View style={styles.middleContainer}>
@@ -68,12 +112,22 @@ const TransactionSheet = ({
           <Text style={styles.balance}>Your Balance - 3 Matic</Text>
         </View>
         <Pressable
-          style={styles.createButton}
+          style={[
+            styles.createButton,
+            {
+              backgroundColor: isValid
+                ? Colors.navyBlue
+                : Colors.disabledNavyBlue,
+            },
+          ]}
           onPress={async () => {
-            // await createWallet();
+            await sendTokens();
           }}
+          disabled={!isValid}
         >
-          <Text style={styles.createText}>Send</Text>
+          <Text style={styles.createText}>
+            {isLoading ? <ActivityIndicator size={"small"} /> : "Send"}
+          </Text>
         </Pressable>
       </View>
     </Sheet>
@@ -181,7 +235,6 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   createButton: {
-    backgroundColor: Colors.navyBlue,
     borderRadius: 10,
     paddingVertical: 12,
     justifyContent: "center",
