@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import React, { useEffect } from "react";
 import getTokenBalance from "../utils/getTokenBalance";
 import getAllNFT from "../utils/getAllNFT";
@@ -15,8 +22,18 @@ import Recieve from "../Components/Recieve";
 import NFTCard from "../Components/NFTCard";
 import { FlatList } from "react-native-gesture-handler";
 import TotalBalance from "../Components/TotalBalance";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import Sheet from "../Components/BottomSheet";
+import Colors from "../Constants/colors";
+import TransactionSheet from "../Components/transactionSheet";
 const Home = () => {
   // const balance=getTokenBalance('1','0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
+  const sendTransactionRef = React.useRef<BottomSheetMethods>(null);
+
+  const openTransactionSheet = () => {
+    sendTransactionRef?.current?.snapToIndex(0);
+  };
   useEffect(() => {
     allNFT();
   }, []);
@@ -64,7 +81,9 @@ const Home = () => {
         <View
           style={{ paddingVertical: 12, flexDirection: "row", columnGap: 8 }}
         >
-          <Send />
+          <TouchableOpacity onPress={openTransactionSheet}>
+            <Send />
+          </TouchableOpacity>
           <Swap />
           <Recieve />
         </View>
@@ -113,6 +132,7 @@ const Home = () => {
           )}
         />
       </SafeAreaView>
+      <TransactionSheet sendTransactionRef={sendTransactionRef} />
     </ScrollView>
   );
 };
