@@ -22,12 +22,15 @@ import Recieve from "../Components/Recieve";
 import NFTCard from "../Components/NFTCard";
 import { FlatList } from "react-native-gesture-handler";
 import TotalBalance from "../Components/TotalBalance";
+import { useAuthStore } from "../store/authStore";
+import { ethers } from "ethers";
 import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import Sheet from "../Components/BottomSheet";
 import Colors from "../Constants/colors";
 import TransactionSheet from "../Components/transactionSheet";
 const Home = () => {
+  const { publicKey } = useAuthStore();
   // const balance=getTokenBalance('1','0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
   const sendTransactionRef = React.useRef<BottomSheetMethods>(null);
 
@@ -35,12 +38,15 @@ const Home = () => {
     sendTransactionRef?.current?.snapToIndex(0);
   };
 
-  // useEffect(() => {
-  //   allNFT();
-  // }, []);
-  const allNFT = async () =>
+  useEffect(() => {
+    userData();
+  }, []);
+  const userData = async () =>{
+    
     await getAllTokens("1", "0xed5af388653567af2f388e6224dc7c4b3241c544");
-  console.log(allNFT);
+    const data = await getAllTokens("137", publicKey!);
+    console.log('saab token',data); 
+  };
   const data = [1, 2, 3, 4];
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#1d1d1d" }}>
@@ -78,7 +84,7 @@ const Home = () => {
         </View>
         <TotalBalance />
         <View
-          style={{ paddingVertical: 12, flexDirection: "row", columnGap: 8 }}
+          style={{ paddingVertical: 12, flexDirection: "row", columnGap: 8, }}
         >
           <TouchableOpacity onPress={openTransactionSheet}>
             <Send />
@@ -132,9 +138,10 @@ const Home = () => {
         />
       </SafeAreaView>
       <TransactionSheet sendTransactionRef={sendTransactionRef} />
-    </ScrollView>
-  );
+    </ScrollView>  
+    );
 };
+
 
 export default Home;
 

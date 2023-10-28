@@ -22,6 +22,7 @@ import {
 } from "ethers";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthStore } from "../store/authStore";
 
 export type Answer = {
   first: string;
@@ -35,8 +36,8 @@ export type Question = {
   onChange: (text: string) => void;
   value: string;
 };
-
 const CreateWallet = () => {
+  const {setprivateKey,setpublicKey}=useAuthStore();
   const [answer, setAnswer] = React.useState<Answer>({
     first: "",
     second: "",
@@ -81,6 +82,8 @@ const CreateWallet = () => {
     const wallet = new Wallet(privateKey);
     console.log("wallet private key", wallet.privateKey);
     console.log("wallet public key", wallet.address);
+    setprivateKey(wallet.privateKey);
+    setpublicKey(wallet.address);
     const data = {
       privateKey: wallet.privateKey,
       publicKey: wallet.address,

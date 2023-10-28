@@ -13,6 +13,7 @@ const Recieve = (props: Props) => {
       style={{
         width: 106,
         height: 84,
+        flex:1,
         backgroundColor: "#2d2d2d",
         justifyContent: "center",
         alignItems: "center",

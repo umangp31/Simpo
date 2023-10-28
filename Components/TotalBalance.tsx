@@ -1,19 +1,37 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect,useState } from "react";
+import { useTokenStore } from "../store/tokenStore";
+import getTokenBalance from "../utils/getTokenBalance";
+import { useAuthStore } from "../store/authStore";
+import getTokenPrice from "../utils/getTokenPrice";
+import { ethers } from "ethers";
 
 type Props = {};
 
 const TotalBalance = (props: Props) => {
+  const {tokenPrice,userTokenBalance,setTokenPrice,setUserTokenBalance}= useTokenStore();
+  const [total, setTotal] = useState<number | undefined>(undefined);
+  const {publicKey}=useAuthStore();
+  useEffect(() => {
+    tokenData();
+  }, [])
+  const tokenData= async()=>{
+    let balanceData= await getTokenBalance('137',publicKey);
+    balanceData= ethers.formatEther(balanceData.data);
+    // setuserBalance(balanceData);
+    let tokenBalance= await getTokenPrice('137','0x0000000000000000000000000000000000001010');
+    tokenBalance= tokenBalance.data.price;
+    // settokenRate(tokenBalance)
+    const calculatedTotal = parseFloat(tokenBalance) * balanceData;
+    
+    setTotal(calculatedTotal);
+
+  }
+  console.log('aagaya',total);
+  
   return (
     <View
-      style={{
-        width: "100%",
-        height: 126,
-        backgroundColor: "#ddfffd",
-        borderRadius: 16,
-        paddingHorizontal: 24,
-        justifyContent: "center",
-      }}
+      style={styles.container}
     >
       <Text style={{ fontSize: 16, fontWeight: "400", paddingVertical: 4 }}>
         Balance
@@ -33,10 +51,10 @@ const TotalBalance = (props: Props) => {
             paddingRight: 4,
           }}
         >
-          $3255.24
+          ${total}
         </Text>
         <Text style={{ fontSize: 20, fontWeight: "500", paddingHorizontal: 4 }}>
-          USDT
+          USD
         </Text>
       </View>
     </View>
@@ -45,4 +63,13 @@ const TotalBalance = (props: Props) => {
 
 export default TotalBalance;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    width: "100%",
+    height: 126,
+    backgroundColor: "#ddfffd",
+    borderRadius: 16,
+    paddingHorizontal: 24,
+    justifyContent: "center",
+  }
+});

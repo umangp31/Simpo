@@ -18,11 +18,11 @@ import { useAuthStore } from "../store/authStore";
 
 const Login = () => {
   const [spinAnim, setSpinAnim] = React.useState(new Animated.Value(0));
+  const {setprivateKey,setpublicKey,privateKey,publicKey}=useAuthStore();
   const spin = spinAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "360deg"],
   });
-  const { setprivateKey } = useAuthStore();
   React.useEffect(() => {
     Animated.loop(
       Animated.timing(spinAnim, {
@@ -38,9 +38,10 @@ const Login = () => {
     const userData = await AsyncStorage.getItem("@user_data");
     if (userData) {
       const jsonData = JSON.parse(userData);
-      setprivateKey(jsonData.privateKey);
       console.log(jsonData.privateKey);
       console.log(jsonData.publicKey);
+      setprivateKey(jsonData?.privateKey);
+      setpublicKey(jsonData?.publicKey);
       navigation.reset({ index: 0, routes: [{ name: "Root" }] });
     }
   };
