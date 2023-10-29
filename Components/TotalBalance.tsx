@@ -6,38 +6,13 @@ import { useAuthStore } from "../store/authStore";
 import getTokenPrice from "../utils/getTokenPrice";
 import { ethers } from "ethers";
 import { getAllTokens } from "../utils/getAllTokens";
+import Address from "../Constants/address";
+import { ChainId } from "../Constants/chainId";
 
 type Props = {};
 
 const TotalBalance = (props: Props) => {
-  const { tokenPrice, userTokenBalance, setTokenPrice, setUserTokenBalance } =
-    useTokenStore();
-  const [total, setTotal] = useState<string | undefined>(undefined);
-  const { publicKey } = useAuthStore();
-  useEffect(() => {
-    tokenData();
-  }, []);
-  const tokenData = async () => {
-    console.log(publicKey, "publicKey");
-
-    let balanceData = await getTokenBalance("137", publicKey);
-    console.log("balance", balanceData);
-
-    balanceData = ethers.formatEther(balanceData.data);
-    // setuserBalance(balanceData);
-    let tokenBalance = await getTokenPrice(
-      "137",
-      "0x0000000000000000000000000000000000001010"
-    );
-    tokenBalance = tokenBalance.data.price;
-    console.log(tokenBalance), "tokenBalance";
-
-    // settokenRate(tokenBalance)
-    const calculatedTotal = (parseFloat(tokenBalance) * balanceData).toFixed(2);
-
-    setTotal(calculatedTotal);
-  };
-  console.log("aagaya", total);
+  const { userBalance } = useTokenStore();
 
   return (
     <View style={styles.container}>
@@ -59,7 +34,7 @@ const TotalBalance = (props: Props) => {
             paddingRight: 4,
           }}
         >
-          ${total}
+          ${userBalance}
         </Text>
         <Text style={{ fontSize: 20, fontWeight: "500", paddingHorizontal: 4 }}>
           USD

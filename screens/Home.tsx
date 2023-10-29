@@ -1,20 +1,8 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useEffect } from "react";
-import getTokenBalance from "../utils/getTokenBalance";
-import getAllNFT from "../utils/getAllNFT";
-import getNFTMetadata from "../utils/getNFTMetadata";
-import { getAllTokens } from "../utils/getAllTokens";
 import { StatusBar } from "expo-status-bar";
 import Avatar from "../Components/Avatar";
 import Send from "../Components/Send";
-import Assets from "../Components/AssetCard";
 import ArrowDown from "../assets/icons/ArrowDown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swap from "../Components/Swap";
@@ -26,19 +14,45 @@ import { useAuthStore } from "../store/authStore";
 import { ethers } from "ethers";
 import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import Sheet from "../Components/BottomSheet";
-import Colors from "../Constants/colors";
 import TransactionSheet from "../Components/transactionSheet";
 import MyAssets from "../Components/MyAssets";
+import getTokenPrice from "../utils/getTokenPrice";
+import getTokenBalance from "../utils/getTokenBalance";
+import { ChainId } from "../Constants/chainId";
+import Address from "../Constants/address";
+import { useTokenStore } from "../store/tokenStore";
 const Home = () => {
   const { publicKey } = useAuthStore();
-  // const balance=getTokenBalance('1','0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
+  const { setTokenPrice, setUserBalance, setUserTokenBalance } =
+    useTokenStore();
   const sendTransactionRef = React.useRef<BottomSheetMethods>(null);
+  const data = [1, 2, 3, 4];
 
   const openTransactionSheet = () => {
     sendTransactionRef?.current?.snapToIndex(0);
   };
-  const data = [1, 2, 3, 4];
+  useEffect(() => {
+    getUserData();
+  }, []);
+  const getUserData = async () => {
+    try {
+      let balanceData = await getTokenBalance(ChainId.Matic, publicKey);
+
+      balanceData = ethers.formatEther(balanceData.data);
+      setUserTokenBalance(balanceData);
+
+      const tokenBalance = await getTokenPrice(ChainId.Matic, Address.Matic);
+
+      setTokenPrice(tokenBalance.data.price);
+      const calculatedTotal = (
+        parseFloat(tokenBalance.data.price) * balanceData
+      ).toFixed(2);
+
+      setUserBalance(calculatedTotal);
+    } catch (error) {
+      console.log("error while fetching user data", error);
+    }
+  };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#1d1d1d" }}>
       <StatusBar style="light" backgroundColor="#1d1d1d" />
@@ -75,7 +89,12 @@ const Home = () => {
         </View>
         <TotalBalance />
         <View
-          style={{flex:1, paddingVertical: 12, flexDirection: "row", columnGap: 8 }}
+          style={{
+            flex: 1,
+            paddingVertical: 12,
+            flexDirection: "row",
+            columnGap: 8,
+          }}
         >
           <TouchableOpacity onPress={openTransactionSheet}>
             <Send />
@@ -99,7 +118,7 @@ const Home = () => {
         >
           My Assets
         </Text>
-        <MyAssets/>
+        <MyAssets />
         <Text
           style={{
             fontSize: 16,
@@ -127,7 +146,6 @@ const Home = () => {
     </ScrollView>
   );
 };
-
 
 export default Home;
 

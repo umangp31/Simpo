@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
 interface Token {
-  code: number | undefined ;
-  message: string | undefined ;
+  code: number | undefined;
+  message: string | undefined;
   data: {
-    contract_address: string | undefined ;
+    contract_address: string | undefined;
     decimals: number | undefined;
     name: string | undefined;
     symbol: string | undefined;
@@ -22,24 +22,27 @@ interface Token {
         url: string | undefined;
       }
     ];
-    current_usd_price?:number | undefined,
-    balance:string | undefined,
+    current_usd_price?: number | undefined;
+    balance: string | undefined;
   };
-  next_page?:number | undefined,
-  count?:number | undefined,
+  next_page?: number | undefined;
+  count?: number | undefined;
 }
 interface ITokenStore {
+  userBalance: string;
   userTokenBalance: undefined | string;
   tokenPrice: undefined | string;
-  userAllTokens:Token[];
+  userAllTokens: Token[];
   setUserTokenBalance: (price: string) => void;
   setTokenPrice: (price: string) => void;
   setUserAllTokens: (tokens: Token[]) => void;
+  setUserBalance: (balance: string) => void;
 }
 
 export const useTokenStore = create<ITokenStore>((set) => ({
   userTokenBalance: undefined,
   tokenPrice: undefined,
+  userBalance: "",
   userAllTokens: [],
   setUserTokenBalance: (price) => {
     set({ userTokenBalance: price });
@@ -50,5 +53,7 @@ export const useTokenStore = create<ITokenStore>((set) => ({
   setUserAllTokens: (tokens) => {
     set({ userAllTokens: tokens });
   },
-
+  setUserBalance: (balance) => {
+    set({ userBalance: balance });
+  },
 }));
