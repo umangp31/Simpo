@@ -37,7 +37,7 @@ export type Question = {
   value: string;
 };
 const CreateWallet = () => {
-  const {setprivateKey,setpublicKey}=useAuthStore();
+  const { setprivateKey, setpublicKey } = useAuthStore();
   const [answer, setAnswer] = React.useState<Answer>({
     first: "",
     second: "",
@@ -80,8 +80,7 @@ const CreateWallet = () => {
 
   const storeWalet = async (privateKey: string) => {
     const wallet = new Wallet(privateKey);
-    console.log("wallet private key", wallet.privateKey);
-    console.log("wallet public key", wallet.address);
+
     setprivateKey(wallet.privateKey);
     setpublicKey(wallet.address);
     const data = {
@@ -110,12 +109,11 @@ const CreateWallet = () => {
 
       const combinedAnswer =
         answer.first + answer.second + answer.third + answer.fourth;
-      console.log(combinedAnswer, "combined answer");
+
       const answersBytes = toUtf8Bytes(combinedAnswer, "NFKC");
 
       const salt = "df1f2d3f4d77ac66e9c5a6c3d8f921b6";
       const saltBytes = toUtf8Bytes(salt, "NFKC");
-      console.log(saltBytes, "random salt");
 
       const privateKey = await pbkdf2(
         answersBytes,
@@ -124,7 +122,7 @@ const CreateWallet = () => {
         32,
         "sha256"
       );
-      console.log(privateKey, "private key in buffer");
+
       await storeWalet(privateKey);
     } catch (error) {
       console.log("Something went wrong", error);

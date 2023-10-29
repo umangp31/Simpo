@@ -1,7 +1,7 @@
 import React from "react";
 
 export const getAllTokens = async (network_id: string, wallet_addr: string) => {
-  const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
+  const CHAINBASE_API_KEY = "2XPFIo3YEpS9nidYqPoYm3syEab";
   if (!network_id || !wallet_addr) {
     throw new Error("network or wallet is undefined");
   }
@@ -17,13 +17,12 @@ export const getAllTokens = async (network_id: string, wallet_addr: string) => {
       }
     );
     const res = await response.json();
-    console.log(res);
-    return res;
     if (!response.ok) {
       throw new Error(
         `Network response was not ok: ${response.status} - ${response.statusText}`
       );
     }
+    return res;
   } catch (error) {
     console.log("error", error);
     throw error;

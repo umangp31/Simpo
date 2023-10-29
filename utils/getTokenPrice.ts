@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const getTokenPrice = async(network_id:string,token_addr:string) => {
-    const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
+const getTokenPrice = async (network_id: string, token_addr: string) => {
+  const CHAINBASE_API_KEY = "2XPFIo3YEpS9nidYqPoYm3syEab";
   if (!token_addr || !network_id) {
     throw new Error("wallet address or network is undefined");
   }
@@ -22,12 +22,11 @@ const getTokenPrice = async(network_id:string,token_addr:string) => {
       );
     }
     const data = await response.json();
-    console.log(data.data);
     return data;
   } catch (error) {
     console.error("Error:", error);
     throw error;
   }
-}
+};
 
 export default getTokenPrice;

@@ -22,7 +22,6 @@ const getAllPortfolio = async (wallet_addr: string) => {
       `Network response was not ok: ${response.status} - ${response.statusText}`;
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log("Error",error);

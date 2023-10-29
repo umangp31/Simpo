@@ -79,8 +79,7 @@ const ImportWallet = () => {
 
   const storeWalet = async (privateKey: string) => {
     const wallet = new Wallet(privateKey);
-    console.log("wallet private key", wallet.privateKey);
-    console.log("wallet public key", wallet.address);
+
     const data = {
       privateKey: wallet.privateKey,
       publicKey: wallet.address,
@@ -107,12 +106,10 @@ const ImportWallet = () => {
 
       const combinedAnswer =
         answer.first + answer.second + answer.third + answer.fourth;
-      console.log(combinedAnswer, "combined answer");
       const answersBytes = toUtf8Bytes(combinedAnswer, "NFKC");
 
       const salt = "df1f2d3f4d77ac66e9c5a6c3d8f921b6";
       const saltBytes = toUtf8Bytes(salt, "NFKC");
-      console.log(saltBytes, "random salt");
 
       const privateKey = await pbkdf2(
         answersBytes,
@@ -121,7 +118,6 @@ const ImportWallet = () => {
         32,
         "sha256"
       );
-      console.log(privateKey, "private key in buffer");
       await storeWalet(privateKey);
     } catch (error) {
       console.log("Something went wrong", error);

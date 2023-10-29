@@ -38,15 +38,6 @@ const Home = () => {
   const openTransactionSheet = () => {
     sendTransactionRef?.current?.snapToIndex(0);
   };
-
-  useEffect(() => {
-    userData();
-  }, []);
-  const userData = async () => {
-    // await getAllTokens("1", "0xed5af388653567af2f388e6224dc7c4b3241c544");
-    // const data = await getAllTokens("137", publicKey!);
-    // console.log("saab token", data);
-  };
   const data = [1, 2, 3, 4];
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#1d1d1d" }}>
@@ -136,6 +127,7 @@ const Home = () => {
     </ScrollView>
   );
 };
+
 
 export default Home;
 
