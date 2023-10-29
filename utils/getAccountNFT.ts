@@ -1,13 +1,14 @@
 import React from "react";
 
-const getAllNFT = async (network_id: string, wallet_addr: string) => {
-  const CHAINBASE_API_KEY = "2XPFIo3YEpS9nidYqPoYm3syEab";
+const getAccountNFT = async (network_id: string , wallet_addr: string) => {
+  // const CHAINBASE_API_KEY = "2XPFIo3YEpS9nidYqPoYm3syEab";
+  const CHAINBASE_API_KEY = process.env.EXPO_PUBLIC_CHAINBASE_API! ;
   if (!wallet_addr || !network_id) {
     throw new Error("wallet address or network is undefined");
   }
   try {
     const response = await fetch(
-      `https://api.chainbase.online/v1/account/nfts?chain_id=${network_id}&address=${wallet_addr}&page=1&limit=5`,
+      `https://api.chainbase.online/v1/account/nfts?chain_id=${network_id}&address=${wallet_addr}`,
       {
         method: "GET",
         headers: {
@@ -29,4 +30,4 @@ const getAllNFT = async (network_id: string, wallet_addr: string) => {
   }
 };
 
-export default getAllNFT;
+export default getAccountNFT;

@@ -2,8 +2,7 @@ const getTokenBalance = async (
   network_id: string,
   wallet_addr: string | undefined
 ) => {
-  const CHAINBASE_API_KEY = "2XPFIo3YEpS9nidYqPoYm3syEab";
-
+  const CHAINBASE_API_KEY = process.env.EXPO_PUBLIC_CHAINBASE_API! ;
   if (!wallet_addr) {
     throw new Error("Wallet address is undefined");
   }

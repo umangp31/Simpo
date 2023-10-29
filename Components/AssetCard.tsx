@@ -1,20 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import React,{useState,useEffect} from "react";
 import Bitcoin from "../assets/icons/Bitcoin";
-import ArrowUp from "../assets/icons/ArrowUp";
-import { useTokenStore } from "../store/tokenStore";
+import ArrowUp from "../assets/icons/GreenArrowUp";
+import { logo, useTokenStore } from "../store/tokenStore";
+import { ethers } from "ethers";
+import getPriceHistory from "../utils/getPriceHistory";
+import fetchSlippage from "../utils/fetchSlippage";
+import RedArrowDown from "../assets/icons/RedArrowDown";
 
-type Props = {
-  balance:string | undefined ,
-  current_usd_price:number | undefined,
-  logos:{
-
-  }
-  name:string | undefined,
-  symbol:string | undefined,
+type AssetProps = {
+  balance: string | undefined;
+  current_usd_price: number | undefined;
+  logos: logo[];
+  tokenName: string | undefined;
+  symbol: string | undefined;
+  contract_address:string | undefined;
 };
 
-const AssetCard = (props: Props) => {
+const AssetCard = (props: AssetProps) => {
+  console.log(props.contract_address,'okayyy');
+  useEffect(() => {
+    data();
+  }, [])
+  
+  const data=async()=>await fetchSlippage(props?.contract_address);
+  const {currentTokenRate,previousTokenRate}=useTokenStore();
+  console.log('yess',typeof(currentTokenRate));
+  
+  const rate:number = (currentTokenRate-previousTokenRate)/100;
+  console.log(rate,'ratwwww');
+  // const rate= parseInt(currentTokenRate-previousTokenRate)/100;
+
+  
   return (
     <View
       style={{
@@ -28,13 +45,14 @@ const AssetCard = (props: Props) => {
     >
       <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Bitcoin width={48} height={48} />
+          {/* <Bitcoin width={48} height={48} /> */}
+          <Image source={{ uri: props.logos[0]?.uri }} height={48} width={48} />
           <View style={{ paddingHorizontal: 4 }}>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
-              Bitcoin
+              {props.tokenName}
             </Text>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
-              BTC
+              {props.symbol}
             </Text>
           </View>
         </View>
@@ -46,13 +64,14 @@ const AssetCard = (props: Props) => {
           }}
         >
           <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
-            $345.23
+            $ {ethers.formatEther(props.balance!)}
           </Text>
-          <View style={{flexDirection:"row",alignItems:"center",gap:4}} >
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
-              1.34
+              {rate.toFixed(4)}
             </Text>
-            <ArrowUp width={12} height={12} />
+            {rate>0?<ArrowUp width={12} height={12}/> :<RedArrowDown width={12} height={12}/>}
+            {/* <ArrowUp width={12} height={12} /> */}
           </View>
         </View>
       </View>

@@ -5,7 +5,7 @@ const getNFTMetadata = async (
   contract_addr: string,
   token_id: string
 ) => {
-  const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
+  const CHAINBASE_API_KEY = process.env.EXPO_PUBLIC_CHAINBASE_API! ;
   if (!network_id || !contract_addr || !token_id) {
     throw new Error("parameters are missing or undefined");
   }

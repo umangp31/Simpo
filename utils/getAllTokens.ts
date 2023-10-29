@@ -1,7 +1,7 @@
 import React from "react";
 
 export const getAllTokens = async (network_id: string, wallet_addr: string) => {
-  const CHAINBASE_API_KEY = "2XPFIo3YEpS9nidYqPoYm3syEab";
+  const CHAINBASE_API_KEY = process.env.EXPO_PUBLIC_CHAINBASE_API! ;
   if (!network_id || !wallet_addr) {
     throw new Error("network or wallet is undefined");
   }

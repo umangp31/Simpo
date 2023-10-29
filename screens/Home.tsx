@@ -21,16 +21,19 @@ import getTokenBalance from "../utils/getTokenBalance";
 import { ChainId } from "../Constants/chainId";
 import Address from "../Constants/address";
 import { useTokenStore } from "../store/tokenStore";
+import getAccountNFT from "../utils/getAccountNFT";
+import { useNftStore } from "../store/NftStore";
+import { getAllTokens } from "../utils/getAllTokens";
+import getPriceHistory from "../utils/getPriceHistory";
 const Home = () => {
   const { publicKey } = useAuthStore();
-  const { setTokenPrice, setUserBalance, setUserTokenBalance } =
-    useTokenStore();
-  const sendTransactionRef = React.useRef<BottomSheetMethods>(null);
-  const data = [1, 2, 3, 4];
-
-  const openTransactionSheet = () => {
-    sendTransactionRef?.current?.snapToIndex(0);
-  };
+  const { AccountNft, setAccountNft } = useNftStore();
+  const {
+    setUserAllTokens,
+    setTokenPrice,
+    setUserBalance,
+    setUserTokenBalance,
+  } = useTokenStore();
   useEffect(() => {
     getUserData();
   }, []);
@@ -49,6 +52,19 @@ const Home = () => {
       ).toFixed(2);
 
       setUserBalance(calculatedTotal);
+
+      const data = await getAccountNFT("137", publicKey!);
+      console.log("this is img url", data.data[0].image_uri);
+      setAccountNft(data.data);
+      console.log("this is accNft value", AccountNft);
+
+      const Tokendata = await getAllTokens("137", publicKey!);
+      setUserAllTokens(Tokendata.data);
+
+
+
+      // const historyy= await getPriceHistory('137','0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270','1672502400','1677524800');
+      // console.log('now this is historyy',historyy);
     } catch (error) {
       console.log("error while fetching user data", error);
     }
@@ -96,15 +112,9 @@ const Home = () => {
             columnGap: 8,
           }}
         >
-          <TouchableOpacity onPress={openTransactionSheet}>
-            <Send />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Swap />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Recieve />
-          </TouchableOpacity>
+          <Send />
+          <Swap />
+          <Recieve />
         </View>
         <Text
           style={{
@@ -131,18 +141,29 @@ const Home = () => {
         >
           My NFT's
         </Text>
-        <FlatList
+        {/* <FlatList
           data={data}
           numColumns={2}
           keyExtractor={(item) => item.toString()}
           renderItem={({ item }) => (
-            <View style={{ flex: 1 / 2, padding: 4 }}>
+            <View style={{ flex: 1 / 2, padding: 2,gap:2}}>
               <NFTCard />
             </View>
           )}
-        />
+        /> */}
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: 16,
+            // justifyContent:"flex-start",
+            paddingHorizontal: 2,
+            // borderWidth:2,borderColor:"red"
+          }}
+        >
+          <NFTCard />
+        </View>
       </SafeAreaView>
-      <TransactionSheet sendTransactionRef={sendTransactionRef} />
     </ScrollView>
   );
 };
