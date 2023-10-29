@@ -1,7 +1,7 @@
 import React from "react";
 
 const getAllNFT = async (network_id: string, wallet_addr: string) => {
-  const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
+  const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
   if (!wallet_addr || !network_id) {
     throw new Error("wallet address or network is undefined");
   }

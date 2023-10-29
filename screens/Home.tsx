@@ -14,7 +14,7 @@ import { getAllTokens } from "../utils/getAllTokens";
 import { StatusBar } from "expo-status-bar";
 import Avatar from "../Components/Avatar";
 import Send from "../Components/Send";
-import Assets from "../Components/Assets";
+import Assets from "../Components/AssetCard";
 import ArrowDown from "../assets/icons/ArrowDown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swap from "../Components/Swap";
@@ -29,6 +29,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import Sheet from "../Components/BottomSheet";
 import Colors from "../Constants/colors";
 import TransactionSheet from "../Components/transactionSheet";
+import MyAssets from "../Components/MyAssets";
 const Home = () => {
   const { publicKey } = useAuthStore();
   // const balance=getTokenBalance('1','0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
@@ -41,11 +42,10 @@ const Home = () => {
   useEffect(() => {
     userData();
   }, []);
-  const userData = async () =>{
-    
-    await getAllTokens("1", "0xed5af388653567af2f388e6224dc7c4b3241c544");
-    const data = await getAllTokens("137", publicKey!);
-    console.log('saab token',data); 
+  const userData = async () => {
+    // await getAllTokens("1", "0xed5af388653567af2f388e6224dc7c4b3241c544");
+    // const data = await getAllTokens("137", publicKey!);
+    // console.log("saab token", data);
   };
   const data = [1, 2, 3, 4];
   return (
@@ -84,13 +84,17 @@ const Home = () => {
         </View>
         <TotalBalance />
         <View
-          style={{ paddingVertical: 12, flexDirection: "row", columnGap: 8, }}
+          style={{flex:1, paddingVertical: 12, flexDirection: "row", columnGap: 8 }}
         >
           <TouchableOpacity onPress={openTransactionSheet}>
             <Send />
           </TouchableOpacity>
-          <Swap />
-          <Recieve />
+          <TouchableOpacity>
+            <Swap />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Recieve />
+          </TouchableOpacity>
         </View>
         <Text
           style={{
@@ -104,16 +108,7 @@ const Home = () => {
         >
           My Assets
         </Text>
-        <View style={{ paddingVertical: 12, rowGap: 12 }}>
-          <Assets />
-          <Assets />
-          <Assets />
-          <Assets />
-          <Assets />
-          <Assets />
-          <Assets />
-          <Assets />
-        </View>
+        <MyAssets/>
         <Text
           style={{
             fontSize: 16,
@@ -138,10 +133,9 @@ const Home = () => {
         />
       </SafeAreaView>
       <TransactionSheet sendTransactionRef={sendTransactionRef} />
-    </ScrollView>  
-    );
+    </ScrollView>
+  );
 };
-
 
 export default Home;
 

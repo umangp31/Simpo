@@ -7,7 +7,7 @@ const getAllTransferNFT = async (
   page?: number,
   limit?: number
 ) => {
-  const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
+  const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
   if (!network_id) {
     throw new Error("network is undefined");
   }

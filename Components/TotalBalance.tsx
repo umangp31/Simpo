@@ -16,18 +16,16 @@ const TotalBalance = (props: Props) => {
     tokenData();
   }, [])
   const tokenData= async()=>{
-    let balanceData= await getTokenBalance('137',publicKey);
-    balanceData= ethers.formatEther(balanceData.data);
-    // setuserBalance(balanceData);
-    let tokenBalance= await getTokenPrice('137','0x0000000000000000000000000000000000001010');
-    tokenBalance= tokenBalance.data.price;
-    // settokenRate(tokenBalance)
-    const calculatedTotal = parseFloat(tokenBalance) * balanceData;
+    // let balanceData= await getTokenBalance('137',publicKey);
+    // balanceData= ethers.formatEther(balanceData.data);
+    // let tokenBalance= await getTokenPrice('137','0x0000000000000000000000000000000000001010');
+    // tokenBalance= tokenBalance.data.price;
+    // const calculatedTotal = parseFloat(tokenBalance) * balanceData;
     
-    setTotal(calculatedTotal);
+    // setTotal(calculatedTotal);
 
   }
-  console.log('aagaya',total);
+  // console.log('aagaya',total);
   
   return (
     <View

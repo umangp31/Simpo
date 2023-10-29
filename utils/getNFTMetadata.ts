@@ -1,7 +1,7 @@
 import React from 'react'
 
 const getNFTMetadata = async(network_id:string,contract_addr:string,token_id:string) => {
-    const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
+    const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
     if(!network_id || !contract_addr || !token_id){
         throw new Error('parameters are missing or undefined');
     }

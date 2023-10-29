@@ -2,10 +2,19 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Bitcoin from "../assets/icons/Bitcoin";
 import ArrowUp from "../assets/icons/ArrowUp";
+import { useTokenStore } from "../store/tokenStore";
 
-type Props = {};
+type Props = {
+  balance:string | undefined ,
+  current_usd_price:number | undefined,
+  logos:{
 
-const Assets = (props: Props) => {
+  }
+  name:string | undefined,
+  symbol:string | undefined,
+};
+
+const AssetCard = (props: Props) => {
   return (
     <View
       style={{
@@ -51,6 +60,6 @@ const Assets = (props: Props) => {
   );
 };
 
-export default Assets;
+export default AssetCard;
 
 const styles = StyleSheet.create({});

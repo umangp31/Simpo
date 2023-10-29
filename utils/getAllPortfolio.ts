@@ -2,7 +2,7 @@ import React from "react";
 import { err } from "react-native-svg/lib/typescript/xml";
 
 const getAllPortfolio = async (wallet_addr: string) => {
-  const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
+  const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
     if(!wallet_addr){
         throw new Error('wallet is undefined');
     }

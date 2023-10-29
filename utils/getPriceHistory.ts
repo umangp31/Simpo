@@ -1,7 +1,7 @@
 import React from 'react'
 
 const getPriceHistory = async(network_id:string,token_addr:string,contract_addr:string,start_time:Date,end_time:Date) => {
-    const CHAINBASE_API_KEY = "2XJJnX3sFlWEFn1n5zKZw49hT8L";
+    const CHAINBASE_API_KEY = "2XPET0EzcCGIdM5iPNboKQzSDIu";
     if (!contract_addr || !network_id ) {
       throw new Error("wallet address or network is undefined");
     }
