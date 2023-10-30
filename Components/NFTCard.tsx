@@ -19,9 +19,7 @@ const NFTCard = (props: Props) => {
     <>
       {AccountNft?.map((item, index) => {
         // console.log("all nfts", AccountNft);
-
         // console.log("this is img urii", item.image_uri);
-
         return (
           <View
             style={{

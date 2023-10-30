@@ -23,8 +23,10 @@ import Address from "../Constants/address";
 import { useTokenStore } from "../store/tokenStore";
 import getAccountNFT from "../utils/getAccountNFT";
 import { useNftStore } from "../store/NftStore";
-import { getAllTokens } from "../utils/getAllTokens"; 
+import { getAllTokens } from "../utils/getAllTokens";
 import getPriceHistory from "../utils/getPriceHistory";
+import { CustomWebView } from "./CustomWebView";
+import { DeFiApps } from "../Components/DefiApps";
 const Home = () => {
   const { publicKey } = useAuthStore();
   const { AccountNft, setAccountNft } = useNftStore();
@@ -88,9 +90,11 @@ const Home = () => {
               color: "white",
               fontSize: 16,
               alignSelf: "center",
+              maxWidth:126
             }}
+            numberOfLines={1}
           >
-            UserName
+            {publicKey}
           </Text>
           <ArrowDown
             width={26}
@@ -114,12 +118,12 @@ const Home = () => {
         </View>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 26,
             fontWeight: "500",
             color: "white",
-            justifyContent: "center",
-            textAlign: "center",
-            paddingTop: 16,
+            textAlign: "left",
+            paddingTop:24,
+            paddingHorizontal:8
           }}
         >
           My Assets
@@ -127,37 +131,30 @@ const Home = () => {
         <MyAssets />
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 26,
             fontWeight: "500",
             color: "white",
             justifyContent: "center",
-            textAlign: "center",
-            paddingTop: 16,
+            textAlign: "left",
+            paddingTop:24,
+            paddingBottom:12,
+            paddingHorizontal:8
           }}
         >
-          My NFT's
+          Collectibles
         </Text>
-        {/* <FlatList
-          data={data}
-          numColumns={2}
-          keyExtractor={(item) => item.toString()}
-          renderItem={({ item }) => (
-            <View style={{ flex: 1 / 2, padding: 2,gap:2}}>
-              <NFTCard />
-            </View>
-          )}
-        /> */}
         <View
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
             gap: 16,
-            // justifyContent:"flex-start",
             paddingHorizontal: 2,
-            // borderWidth:2,borderColor:"red"
           }}
         >
           <NFTCard />
+        </View>
+        <View>
+          <DeFiApps  />
         </View>
       </SafeAreaView>
     </ScrollView>

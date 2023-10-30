@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Simpo",
-    "slug": "Simpo",
+    "slug": "simpo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "e79610ba-5db9-4c26-9666-7b525cebdda4"
+        "projectId": "35dacf98-ce92-42b8-ada6-333fc804241b"
       }
     }
   }

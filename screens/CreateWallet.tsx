@@ -182,14 +182,15 @@ export default CreateWallet;
 
 const styles = StyleSheet.create({
   createContainer: {
-    backgroundColor: Colors.background,
+    backgroundColor: "#1d1d1d",
     flex: 1,
     padding: 16,
   },
   headerText: {
     color: Colors.foreground,
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "600",
+    paddingHorizontal: 8,
   },
   questionsContainer: {
     marginTop: 24,
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   questionContainer: {
     backgroundColor: Colors.foreground,
     padding: 18,
-    borderRadius: 20,
+    borderRadius: 12,
     marginBottom: 20,
   },
   questionText: {
@@ -206,8 +207,9 @@ const styles = StyleSheet.create({
     color: Colors.foreground,
     fontWeight: "500",
     backgroundColor: Colors.navyBlue,
-    borderRadius: 10,
+    borderRadius: 6,
     paddingHorizontal: 4,
+    paddingVertical: 6,
     alignSelf: "flex-start",
   },
   input: {

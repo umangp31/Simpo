@@ -1,10 +1,18 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import RedArrowDown from "../assets/icons/RedArrowDown";
+import { useAuthStore } from "../store/authStore";
+import GreenArrowUp from "../assets/icons/GreenArrowUp";
+import { ethers } from "ethers";
 
-type Props = {};
+type TransactionCardProps = {
+  from: string;
+  to: string;
+  value: string;
+};
 
-const TransactionCard = (props: Props) => {
+const TransactionCard = (props: TransactionCardProps) => {
+  const { publicKey } = useAuthStore();
   return (
     <View style={styles.ActivityContainer}>
       <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
@@ -30,10 +38,20 @@ const TransactionCard = (props: Props) => {
           </View>
           <View style={{ paddingHorizontal: 4 }}>
             <View style={styles.ActivityMethodContainer}>
-              <RedArrowDown width={14} height={14} />
-              <Text style={styles.ActivityMethodText}>Recieved</Text>
+              {props.from == publicKey ? (
+                <>
+                  <GreenArrowUp width={14} height={14} />
+                  <Text style={styles.ActivityMethodText}>Sent</Text>
+                </>
+              ) : (
+                <>
+                  <RedArrowDown width={14} height={14} />
+                  <Text style={styles.ActivityMethodText}>Recieved</Text>
+                </>
+              )}
+              {/* <RedArrowDown width={14} height={14} /> */}
             </View>
-            <Text style={styles.TransactionAssetName}>WMatic</Text>
+            <Text style={styles.TransactionAssetName}>Matic</Text>
           </View>
         </View>
         <View
@@ -43,9 +61,9 @@ const TransactionCard = (props: Props) => {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.TokenPrice}>$ 5423</Text>
+          <Text style={styles.TokenPrice} numberOfLines={1} >{(parseFloat(ethers.formatEther(props.value))).toFixed(4)} </Text>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-            <Text style={styles.TokenPriceInUSD}>0.435</Text>
+            {/* <Text style={styles.TokenPriceInUSD}>0.435</Text> */}
           </View>
         </View>
       </View>
@@ -99,8 +117,9 @@ const styles = StyleSheet.create({
   },
   TokenPrice: {
     fontWeight: "500",
-    fontSize: 14,
+    fontSize: 20,
     color: "white",
+    maxWidth:100,
   },
   TokenPriceInUSD: {
     fontWeight: "500",

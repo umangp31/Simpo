@@ -6,6 +6,7 @@ import Login from "../screens/Login";
 import CreateWallet from "../screens/CreateWallet";
 import ImportWallet from "../screens/ImportWallet";
 import Swap from "../screens/Swap";
+import { CustomWebView } from "../screens/CustomWebView";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function StackNavigation() {
@@ -63,6 +64,7 @@ export default function StackNavigation() {
           gestureEnabled: false,
         }}
       />
+      <Stack.Screen name="WebView" component={CustomWebView} />
     </Stack.Navigator>
   );
 }

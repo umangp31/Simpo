@@ -16,7 +16,7 @@ const TotalBalance = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 16, fontWeight: "400", paddingVertical: 4 }}>
+      <Text style={{ fontSize: 20, fontWeight: "600", paddingVertical: 4 }}>
         Balance
       </Text>
       <View
@@ -36,7 +36,7 @@ const TotalBalance = (props: Props) => {
         >
           ${userBalance}
         </Text>
-        <Text style={{ fontSize: 20, fontWeight: "500", paddingHorizontal: 4 }}>
+        <Text style={{ fontSize: 20, fontWeight: "700", paddingHorizontal: 4 }}>
           USD
         </Text>
       </View>

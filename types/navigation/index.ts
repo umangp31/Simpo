@@ -17,6 +17,7 @@ export type RootStackParamList = {
   CreateWallet: undefined;
   ImportWallet: undefined;
   Swap: undefined;
+  WebView: {url: string};
 };
 
 export type RootTabParamList = {
