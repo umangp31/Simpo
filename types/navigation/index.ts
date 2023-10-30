@@ -21,6 +21,7 @@ export type RootStackParamList = {
 export type RootTabParamList = {
   Wallet: undefined;
   Settings: undefined;
+  Activity: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

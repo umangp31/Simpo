@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Bitcoin from "../assets/icons/Bitcoin";
 import ArrowUp from "../assets/icons/GreenArrowUp";
 import { logo, useTokenStore } from "../store/tokenStore";
@@ -14,24 +14,23 @@ type AssetProps = {
   logos: logo[];
   tokenName: string | undefined;
   symbol: string | undefined;
-  contract_address:string | undefined;
+  contract_address: string | undefined;
 };
 
 const AssetCard = (props: AssetProps) => {
-  console.log(props.contract_address,'okayyy');
+  console.log(props.contract_address, "okayyy");
   useEffect(() => {
     data();
-  }, [])
-  
-  const data=async()=>await fetchSlippage(props?.contract_address);
-  const {currentTokenRate,previousTokenRate}=useTokenStore();
-  console.log('yess',typeof(currentTokenRate));
-  
-  const rate:number = (currentTokenRate-previousTokenRate)/100;
-  console.log(rate,'ratwwww');
+  }, []);
+
+  const data = async () => await fetchSlippage(props?.contract_address);
+  const { currentTokenRate, previousTokenRate } = useTokenStore();
+  console.log("yess", typeof currentTokenRate);
+
+  const rate = (currentTokenRate - previousTokenRate) / 100;
+  console.log(rate, "ratwwww");
   // const rate= parseInt(currentTokenRate-previousTokenRate)/100;
 
-  
   return (
     <View
       style={{
@@ -45,8 +44,7 @@ const AssetCard = (props: AssetProps) => {
     >
       <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {/* <Bitcoin width={48} height={48} /> */}
-          <Image source={{ uri: props.logos[0]?.uri }} height={48} width={48} />
+          <Image source={{ uri: props.logos[0]?.uri }} height={48} width={48} style={{borderRadius:50,marginRight:2}} />
           <View style={{ paddingHorizontal: 4 }}>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
               {props.tokenName}
@@ -70,8 +68,11 @@ const AssetCard = (props: AssetProps) => {
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
               {rate.toFixed(4)}
             </Text>
-            {rate>0?<ArrowUp width={12} height={12}/> :<RedArrowDown width={12} height={12}/>}
-            {/* <ArrowUp width={12} height={12} /> */}
+            {rate > 0 ? (
+              <ArrowUp width={12} height={12} />
+            ) : (
+              <RedArrowDown width={12} height={12} />
+            )}
           </View>
         </View>
       </View>
