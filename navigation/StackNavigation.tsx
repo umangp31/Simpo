@@ -5,6 +5,7 @@ import BottomTabNavigator from "./BottomTabNavigation";
 import Login from "../screens/Login";
 import CreateWallet from "../screens/CreateWallet";
 import ImportWallet from "../screens/ImportWallet";
+import Swap from "../screens/Swap";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function StackNavigation() {
@@ -47,6 +48,15 @@ export default function StackNavigation() {
       <Stack.Screen
         name="ImportWallet"
         component={ImportWallet}
+        options={{
+          headerShown: false,
+          animation: "default",
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Swap"
+        component={Swap}
         options={{
           headerShown: false,
           animation: "default",

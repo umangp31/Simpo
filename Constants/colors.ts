@@ -4,4 +4,6 @@ export default class Colors {
   static mintGreen = "#77dda3";
   static navyBlue = "#2081E2";
   static disabledNavyBlue = "#7FAAD7";
+  static paleYellow = "#ffe9aa";
+  static lightPurple = "#f6ddff";
 }

@@ -4,7 +4,7 @@ const ArrowDown = (props: SvgProps) => (
   <Svg
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#ffffff"
+    stroke={props.color ? props.color : "#ffffff"}
     {...props}
   >
     <G id="SVGRepo_bgCarrier" strokeWidth={0} />
@@ -16,7 +16,7 @@ const ArrowDown = (props: SvgProps) => (
     <G id="SVGRepo_iconCarrier">
       <Path
         d="M7 10L12 15L17 10"
-        stroke="#ffffff"
+        stroke={props.color ? props.color : "#ffffff"}
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"

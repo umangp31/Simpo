@@ -1,12 +1,17 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import SwapToken from "../assets/icons/SwapToken";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {};
 
 const Swap = (props: Props) => {
+  const navigation = useNavigation();
+  const navigateToSwap = () => {
+    navigation.navigate("Swap");
+  };
   return (
-    <TouchableOpacity style={{flex:1}} >
+    <TouchableOpacity style={{ flex: 1 }} onPress={navigateToSwap}>
       <View
         style={{
           width: "100%",
