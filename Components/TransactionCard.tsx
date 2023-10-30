@@ -21,7 +21,7 @@ const TransactionCard = (props: Props) => {
             />
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/18886885/pexels-photo-18886885/free-photo-of-a-picnic-basket-with-flowers-and-bread-in-the-back-of-a-car.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+                uri: "https://mumbai.polygonscan.com/assets/poly/images/svg/logos/polygon-chain.svg?v=23.10.4.2",
               }}
               style={styles.ChainImage}
               height={22}

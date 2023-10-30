@@ -16,33 +16,40 @@ const NFTCard = (props: Props) => {
   const { AccountNft } = useNftStore();
 
   return (
-    <View
-      style={{
-        width: "47%",
-        height: 156,
-        backgroundColor: "#ddfffd",
-        borderRadius: 16,
-      }}
-    >
+    <>
       {AccountNft?.map((item, index) => {
+        // console.log("all nfts", AccountNft);
+
+        // console.log("this is img urii", item.image_uri);
+
         return (
-          <View>
-            <Image
-              source={{
-                uri: getIPFSLink(item.image_uri),
-              }}
-              style={{
-                // flex:1,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: 16,
-              }}
-            />
+          <View
+            style={{
+              width: "47%",
+              height: 156,
+              backgroundColor: "#ddfffd",
+              borderRadius: 16,
+              flexDirection: "column",
+            }}
+          >
+            <View style={{ gap: 4 }}>
+              <Image
+                source={{
+                  uri: getIPFSLink(item.image_uri),
+                }}
+                style={{
+                  // flex:1,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: 16,
+                }}
+              />
+            </View>
           </View>
         );
       })}
-    </View>
+    </>
   );
 };
 

@@ -46,7 +46,6 @@ const TransactionSheet = ({
         process.env.EXPO_PUBLIC_RPC_URL
       );
       console.log(privateKey);
-
       const signer = new Wallet(privateKey!, provider);
       const tx = await signer.sendTransaction({
         to: address,

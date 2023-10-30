@@ -23,7 +23,7 @@ import Address from "../Constants/address";
 import { useTokenStore } from "../store/tokenStore";
 import getAccountNFT from "../utils/getAccountNFT";
 import { useNftStore } from "../store/NftStore";
-import { getAllTokens } from "../utils/getAllTokens";
+import { getAllTokens } from "../utils/getAllTokens"; 
 import getPriceHistory from "../utils/getPriceHistory";
 const Home = () => {
   const { publicKey } = useAuthStore();

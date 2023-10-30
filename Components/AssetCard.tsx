@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 import getPriceHistory from "../utils/getPriceHistory";
 import fetchSlippage from "../utils/fetchSlippage";
 import RedArrowDown from "../assets/icons/RedArrowDown";
+import GreenArrowUp from "../assets/icons/GreenArrowUp";
 
 type AssetProps = {
   balance: string | undefined;
@@ -18,19 +19,37 @@ type AssetProps = {
 };
 
 const AssetCard = (props: AssetProps) => {
-  // console.log(props.contract_address, "okayyy");
-  // useEffect(() => {
-  //   data();
-  // }, []);
+  console.log(props.contract_address, "okayyy");
+  const {
+    currentTokenRate,
+    previousTokenRate,
+    setCurrentTokenRate,
+    setPreviousTokenRate,
+  } = useTokenStore();
+  useEffect(() => {
+    data();
+  }, []);
 
-  // const data = async () => await fetchSlippage(props?.contract_address);
-  // const { currentTokenRate, previousTokenRate } = useTokenStore();
-  // console.log("yess", typeof currentTokenRate);
+  const data = async () => {
+    const response = await fetchSlippage(props?.contract_address);
+    console.log("all trans here", response);
 
-  // const rate = (currentTokenRate - previousTokenRate) / 100;
-  // console.log(rate, "ratwwww");
+    setCurrentTokenRate(response.data[0].price);
+    console.log("current token ratee", currentTokenRate);
+
+    setPreviousTokenRate(response.data[response.data.length - 1].price);
+    console.log("prev finally", previousTokenRate);
+  };
+  console.log("res from fetchslippage", data);
+
+  console.log("yess", typeof currentTokenRate);
+  console.log('hi',parseFloat(currentTokenRate!));
+  
+  const rate =
+    (parseFloat(currentTokenRate!) - parseFloat(previousTokenRate!))/100;
+    // const ratePer=rate.toFixed(4)
+  console.log(rate, "ratweee");
   // const rate= parseInt(currentTokenRate-previousTokenRate)/100;
-
   return (
     <View
       style={{
@@ -44,7 +63,12 @@ const AssetCard = (props: AssetProps) => {
     >
       <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image source={{ uri: props.logos[0]?.uri }} height={48} width={48} style={{borderRadius:50,marginRight:2}} />
+          <Image
+            source={{ uri: props.logos[0]?.uri }}
+            height={48}
+            width={48}
+            style={{ borderRadius: 50, marginRight: 2 }}
+          />
           <View style={{ paddingHorizontal: 4 }}>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
               {props.tokenName}
@@ -66,13 +90,13 @@ const AssetCard = (props: AssetProps) => {
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
-              {/* {rate.toFixed(4)} */}
+              {rate.toFixed(4)}
             </Text>
-            {/* {rate > 0 ? (
-              <ArrowUp width={12} height={12} />
+            {rate > 0 ? (
+              <GreenArrowUp width={12} height={12} />
             ) : (
               <RedArrowDown width={12} height={12} />
-            )} */}
+            )}
           </View>
         </View>
       </View>

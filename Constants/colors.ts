@@ -1,5 +1,6 @@
 export default class Colors {
   static background = "#000000";
+  static midblack = "#242423";
   static foreground = "#ffffff";
   static mintGreen = "#77dda3";
   static navyBlue = "#2081E2";
