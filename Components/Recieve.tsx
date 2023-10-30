@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import ArrowDown from "../assets/icons/ArrowDown";
 import Deposit from "../assets/icons/Deposit";
 import ArrowUp from "../assets/icons/GreenArrowUp";
 import Colors from "../Constants/colors";

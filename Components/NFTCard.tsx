@@ -33,18 +33,33 @@ const NFTCard = (props: Props) => {
             }}
           >
             <View style={{ gap: 4 }}>
-              <Image
-                source={{
-                  uri: getIPFSLink(item.image_uri),
-                }}
-                style={{
-                  // flex:1,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  borderRadius: 16,
-                }}
-              />
+              {item.image_uri == "" ? (
+                <Image
+                  source={{
+                    uri: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.-VXH5l0qH_CTVtxIxLw0rAHaHa%26pid%3DApi&f=1&ipt=37f95b195022efe27792e5f01a09413a894d04ab7008e78ad690a1f8be58fdee&ipo=images",
+                  }}
+                  style={{
+                    // flex:1,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: 16,
+                  }}
+                />
+              ) : (
+                <Image
+                  source={{
+                    uri: getIPFSLink(item.image_uri),
+                  }}
+                  style={{
+                    // flex:1,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: 16,
+                  }}
+                />
+              )}
             </View>
           </View>
         );
