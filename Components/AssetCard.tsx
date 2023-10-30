@@ -19,7 +19,6 @@ type AssetProps = {
 };
 
 const AssetCard = (props: AssetProps) => {
-  console.log(props.contract_address, "okayyy");
   const {
     currentTokenRate,
     previousTokenRate,
@@ -32,24 +31,14 @@ const AssetCard = (props: AssetProps) => {
 
   const data = async () => {
     const response = await fetchSlippage(props?.contract_address);
-    console.log("all trans here", response);
 
     setCurrentTokenRate(response.data[0].price);
-    console.log("current token ratee", currentTokenRate);
 
     setPreviousTokenRate(response.data[response.data.length - 1].price);
-    console.log("prev finally", previousTokenRate);
   };
-  console.log("res from fetchslippage", data);
 
-  console.log("yess", typeof currentTokenRate);
-  console.log('hi',parseFloat(currentTokenRate!));
-  
   const rate =
-    (parseFloat(currentTokenRate!) - parseFloat(previousTokenRate!))/100;
-    // const ratePer=rate.toFixed(4)
-  console.log(rate, "ratweee");
-  // const rate= parseInt(currentTokenRate-previousTokenRate)/100;
+    (parseFloat(currentTokenRate!) - parseFloat(previousTokenRate!)) / 100;
   return (
     <View
       style={{

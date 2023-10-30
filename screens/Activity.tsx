@@ -12,31 +12,25 @@ type Props = {};
 const Activity = (props: Props) => {
   useEffect(() => {
     // ActivityData();
-    fetchUserTransaction()
-  }, [])
+    fetchUserTransaction();
+  }, []);
 
-  const ActivityData=async()=>{
-    const pro=new ethers.EtherscanProvider();
-    
+  const ActivityData = async () => {
+    const pro = new ethers.EtherscanProvider();
+
     const provider = new ethers.JsonRpcProvider(
       process.env.EXPO_PUBLIC_RPC_URL
     );
     // const transaction=await provider
-    console.log(pro);
-    
-  }
+  };
 
-  const {publicKey}=useAuthStore();
-  const fetchUserTransaction= async()=>{
-    const transactionData=await getUserTransactionActivity(publicKey!);
-    
-    console.log('transaction data',transactionData);
+  const { publicKey } = useAuthStore();
+  const fetchUserTransaction = async () => {
+    const transactionData = await getUserTransactionActivity(publicKey!);
 
     // return transactionData;
-}
-console.log('this are all tra',);
+  };
 
-  
   return (
     <ScrollView style={styles.scrollviewContainer}>
       <StatusBar style="light" backgroundColor="#1d1d1d" />

@@ -45,13 +45,11 @@ const TransactionSheet = ({
       const provider = new ethers.JsonRpcProvider(
         process.env.EXPO_PUBLIC_RPC_URL
       );
-      console.log(privateKey);
       const signer = new Wallet(privateKey!, provider);
       const tx = await signer.sendTransaction({
         to: address,
         value: ethers.parseUnits(amount, "ether"),
       });
-      console.log(tx);
       sendTransactionRef?.current?.close();
     } catch (error) {
       console.log("something went wrong", error);
