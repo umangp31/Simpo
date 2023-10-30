@@ -54,14 +54,10 @@ const Home = () => {
       setUserBalance(calculatedTotal);
 
       const data = await getAccountNFT("137", publicKey!);
-      console.log("this is img url", data.data[0].image_uri);
       setAccountNft(data.data);
-      console.log("this is accNft value", AccountNft);
 
       const Tokendata = await getAllTokens("137", publicKey!);
       setUserAllTokens(Tokendata.data);
-
-
 
       // const historyy= await getPriceHistory('137','0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270','1672502400','1677524800');
       // console.log('now this is historyy',historyy);

@@ -18,17 +18,17 @@ type AssetProps = {
 };
 
 const AssetCard = (props: AssetProps) => {
-  console.log(props.contract_address, "okayyy");
-  useEffect(() => {
-    data();
-  }, []);
+  // console.log(props.contract_address, "okayyy");
+  // useEffect(() => {
+  //   data();
+  // }, []);
 
-  const data = async () => await fetchSlippage(props?.contract_address);
-  const { currentTokenRate, previousTokenRate } = useTokenStore();
-  console.log("yess", typeof currentTokenRate);
+  // const data = async () => await fetchSlippage(props?.contract_address);
+  // const { currentTokenRate, previousTokenRate } = useTokenStore();
+  // console.log("yess", typeof currentTokenRate);
 
-  const rate = (currentTokenRate - previousTokenRate) / 100;
-  console.log(rate, "ratwwww");
+  // const rate = (currentTokenRate - previousTokenRate) / 100;
+  // console.log(rate, "ratwwww");
   // const rate= parseInt(currentTokenRate-previousTokenRate)/100;
 
   return (
@@ -66,13 +66,13 @@ const AssetCard = (props: AssetProps) => {
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
             <Text style={{ fontWeight: "500", fontSize: 14, color: "white" }}>
-              {rate.toFixed(4)}
+              {/* {rate.toFixed(4)} */}
             </Text>
-            {rate > 0 ? (
+            {/* {rate > 0 ? (
               <ArrowUp width={12} height={12} />
             ) : (
               <RedArrowDown width={12} height={12} />
-            )}
+            )} */}
           </View>
         </View>
       </View>
