@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { token } from "../types/Uniswap";
+import { tokens } from "../Constants/swap";
 
 export interface logo {
   uri: string | undefined;
@@ -35,12 +37,16 @@ interface ITokenStore {
   userAllTokens: Token[] | undefined;
   currentTokenRate: string | undefined;
   previousTokenRate: string | undefined;
+  sendSwapToken: token | undefined;
+  receiveSwapToken: token | undefined;
   setUserTokenBalance: (price: string) => void;
   setTokenPrice: (price: string) => void;
   setUserAllTokens: (tokens: Token[]) => void;
   setUserBalance: (balance: string) => void;
   setCurrentTokenRate: (rate: string) => void;
   setPreviousTokenRate: (rate: string) => void;
+  setSendSwapToken: (token: token) => void;
+  setReceiveSwapToken: (token: token) => void;
 }
 
 export const useTokenStore = create<ITokenStore>((set) => ({
@@ -50,6 +56,14 @@ export const useTokenStore = create<ITokenStore>((set) => ({
   userAllTokens: undefined,
   currentTokenRate: undefined,
   previousTokenRate: undefined,
+  sendSwapToken: tokens[0],
+  receiveSwapToken: tokens[1],
+  setSendSwapToken: (token) => {
+    set({ sendSwapToken: token });
+  },
+  setReceiveSwapToken: (token) => {
+    set({ receiveSwapToken: token });
+  },
   setUserTokenBalance: (price) => {
     set({ userTokenBalance: price });
   },

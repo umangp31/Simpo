@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   StatusBar,
@@ -7,7 +8,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Close from "../assets/icons/Cllose";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,11 +16,41 @@ import Colors from "../Constants/colors";
 import ArrowDown from "../assets/icons/ArrowDown";
 import SwapIcon from "../assets/icons/SwapIcon";
 import SwapToken from "../assets/icons/SwapToken";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { RecieveSwapSheet, SendSwapSheet } from "../Components/swapSheet";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useTokenStore } from "../store/tokenStore";
+import { getQoute } from "../utils/getQoute";
+import { useAuthStore } from "../store/authStore";
+import { swapTokens } from "../utils/swapTokens";
 
 const Swap = () => {
   const navigation = useNavigation();
+  const { privateKey } = useAuthStore();
   const [sendAmount, setSendAmount] = React.useState("");
   const [receiveAmount, setReceiveAmount] = React.useState("");
+  const swapTransactionRef = React.useRef<BottomSheetMethods>(null);
+  const receiveTransactionRef = React.useRef<BottomSheetMethods>(null);
+  const { sendSwapToken, receiveSwapToken } = useTokenStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const getMeQoute = async () => {
+    try {
+      setIsLoading(true);
+      const result = await getQoute(
+        sendSwapToken!,
+        receiveSwapToken!,
+        parseFloat(sendAmount),
+        privateKey!
+      );
+      console.log("result ", result.qoute);
+
+      setReceiveAmount(result.qoute.slice(0, 5));
+    } catch (error) {
+      console.log("something went wrong", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -52,10 +83,15 @@ const Swap = () => {
                 onChangeText={setSendAmount}
                 underlineColorAndroid={Colors.background}
               />
-              <View style={styles.currencyContainer}>
-                <Text style={styles.currency}>BTC</Text>
+              <TouchableOpacity
+                style={styles.currencyContainer}
+                onPress={() => {
+                  swapTransactionRef.current?.snapToIndex(0);
+                }}
+              >
+                <Text style={styles.currency}>{sendSwapToken?.TokenName}</Text>
                 <ArrowDown height={20} width={20} color={Colors.background} />
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           {/* <SwapIcon
@@ -85,10 +121,17 @@ const Swap = () => {
                 onChangeText={setReceiveAmount}
                 underlineColorAndroid={Colors.background}
               />
-              <View style={styles.currencyContainer}>
-                <Text style={styles.currency}>Matic</Text>
+              <TouchableOpacity
+                style={styles.currencyContainer}
+                onPress={() => {
+                  receiveTransactionRef.current?.snapToIndex(0);
+                }}
+              >
+                <Text style={styles.currency}>
+                  {receiveSwapToken?.TokenName}
+                </Text>
                 <ArrowDown height={20} width={20} color={Colors.background} />
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.uniswapCredits}>
@@ -111,13 +154,32 @@ const Swap = () => {
             },
           ]}
           onPress={async () => {
-            // await sendTokens();
+            if (receiveAmount === "") {
+              await getMeQoute();
+            } else {
+           
+              await swapTokens(
+                sendSwapToken!,
+                receiveSwapToken!,
+                parseFloat(sendAmount),
+                privateKey!
+              );
+            }
           }}
-          //   disabled={!isValid}
         >
-          <Text style={styles.createText}>Get Qoute</Text>
+          <Text style={styles.createText}>
+            {isLoading ? (
+              <ActivityIndicator size={"small"} />
+            ) : receiveAmount === "" ? (
+              "Get Qoute"
+            ) : (
+              "Swap"
+            )}
+          </Text>
         </Pressable>
       </View>
+      <SendSwapSheet sendTransactionRef={swapTransactionRef} />
+      <RecieveSwapSheet sendTransactionRef={receiveTransactionRef} />
     </SafeAreaView>
   );
 };
