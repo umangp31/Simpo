@@ -28,5 +28,6 @@ Simpo is a decentralized cryptocurrency wallet that focuses on streamlining the 
 
 **Installation:**
 
-Download the build from here: 
+Uniswap V3 Proxy repo link: 
 
+- https://github.com/sahilkakwani9/Uniswap-v3-Proxy
