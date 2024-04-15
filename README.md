@@ -1,5 +1,5 @@
 
-# LensPay
+# Simpo
 Simpo is a decentralized cryptocurrency wallet that focuses on streamlining the processes of wallet recovery, user onboarding, and logging in, all within the realm of cryptocurrency management.
 
 
